@@ -1,13 +1,14 @@
 <?php
-
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "contatos";
-$port = 3306;
-
-//Conexao com a porta
-$conn = new PDO("mysql:host=$host;port=$port;dbname=" . $dbname, $user, $pass);
-
-//Conexao sem a porta
-//$conn = new PDO("mysql:host=$host;dbname=".$dbname, $user, $pass);
+$servername = "localhost";
+$database = "projeto";
+$username = "root";
+$password = "";
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $database);
+// Check connection
+if (!$conn) {
+    die("Conexao falhou: " . mysqli_connect_error());
+}
+echo "Conectado com sucesso";
+mysqli_close($conn);
+?>
