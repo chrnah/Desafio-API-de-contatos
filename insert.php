@@ -1,23 +1,31 @@
-
 <?php
-$nome = $_POST["nome"];
-$sobre_nome = $_POST["sobre_nome"];
-$nascimento = $_POST["nascimento"];
-$telefone = $_POST["telefone"];
-$celular = $_POST["celular"];
-$email = $_POST["email"];
-
-include_once './conexao.php';
-
-$sql = "insert into cliente values(null,
-            '" . $nome . "','" . $sobre_nome . "','" . $nascimento . "','" . $telefone . "','" . $celular . "','" . $email;
-//echo $sql;
-
-if (mysql_query($sql, $con)) {
-    $msg = "Gravado com sucesso!";
-}
-else {
-    $msg = "Erro ao gravar!";
-}
-mysql_close($con);
+session_start();
+include_once("conexao.php");
 ?>
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Listar</title>
+</head>
+<body>
+        <a href="cadastrar.php">Cadastrar</a><br>
+		<a href="listar.php">Listar</a><br>
+    <h1>Listar</h1>
+    <?php
+if (isset($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
+
+$sql = "SELECT * FROM contatos ORDER BY id DESC";
+$result = $conexao->query($sql);
+print_r($result);
+
+
+
+?>
+    </body>
+    </html>
