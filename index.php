@@ -1,74 +1,95 @@
+<?php
+include_once './conexao.php';
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro</title>
+    </head>
+    <body>
+        <h1>Cadastro</h1>
+        <?php
+//Receber os dados do formulário
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+//Verificar se o usuário clicou no botão
+if (!empty($dados['CadUsuario'])) {
+  //var_dump($dados);
 
+  $empty_input = false;
 
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  $dados = array_map('trim', $dados);
+  if (in_array("", $dados)) {
+    $empty_input = true;
+    echo "<p style='color: #f00;'>Erro: Necessário preencher todos campos!</p>";
+  }
+  elseif (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
+    $empty_input = true;
+    echo "<p style='color: #f00;'>Erro: Necessário preencher com e-mail válido!</p>";
+  }
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  if (!$empty_input) {
+    $query_usuario = "INSERT INTO usuarios (nome, email) VALUES (:nome, :email) ";
+    $cad_usuario = $conn->prepare($query_usuario);
+    $cad_usuario->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+    $cad_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+    $cad_usuario->execute();
+    if ($cad_usuario->rowCount()) {
+      echo "<p style='color: green;'>Usuário cadastrado com sucesso!</p>";
+      unset($dados);
+    }
+    else {
+      echo "<p style='color: #f00;'>Erro: Usuário não cadastrado com sucesso!</p>";
+    }
+  }
+}
+?>
+        <form name="cad-usuario" method="POST" action="">
+            <label>Nome: </label>
+            <input type="text" name="nome" id="nome" placeholder="Primeiro Nome" value="<?php
+if (isset($dados['nome'])) {
+  echo $dados['nome'];
+}
+?>"><br><br>
 
-    <title>Contatos</title>
-  </head>
-  <body>
-    
+            <label>Sobre Nome: </label>
+            <input type="sobre_Nome" name="sobre_nome" id="sobre_nome" placeholder="" value="<?php
+if (isset($dados['sobre_nome'])) {
+  echo $dados['sobre_nome'];
+}
+?>"><br><br>
+   
+   <label>Nascimento: </label>
+            <input type="nascimento" name="nascimento" id="nascimento" placeholder="" value="<?php
+if (isset($dados['nascimento'])) {
+  echo $dados['nascimento'];
+}
+?>"><br><br>
 
+<label>Telefone: </label>
+            <input type="telefone" name="telefone" id="telefone" placeholder="" value="<?php
+if (isset($dados['telefone'])) {
+  echo $dados['telefone'];
+}
+?>"><br><br>
 
-    <h1>Cadastro</h1>
-    <form>
+<label>Celular: </label>
+            <input type="celular" name="celular" id="celular" placeholder="" value="<?php
+if (isset($dados['celular'])) {
+  echo $dados['celular'];
+}
+?>"><br><br>
 
-<div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">NOME</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-</div>
+<label>E-mail: </label>
+            <input type="email" name="email" id="email" placeholder="" value="<?php
+if (isset($dados['email'])) {
+  echo $dados['email'];
+}
+?>"><br><br>
 
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">SOBRE NOME</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">NASCIMENTO</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">TELEFONE</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">CELULAR</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">EMAIL</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-
-<div>
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">gravar dados</label>
-</div>
-  <button type="submit" class="btn btn-primary">Enviar</button>
-  <div class="mb-3">
-    
-  </div>
+      <input type="submit" value="Cadastrar" name="CadUsuario">
+  
 </form>
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    
-  </body>
+</body>
 </html>
