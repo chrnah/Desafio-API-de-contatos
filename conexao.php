@@ -1,22 +1,13 @@
 <?php
-/**
- * @return /PDO
- */
-function getConnection()
-{
-    $dsn = 'mysql:host=localhost;dbname=contatos;charset=utf8';
-    $user = 'root';
-    $pass = '';
-    try {
 
-        $pdo = new PDO($dsn, $user, $pass);
-        return $pdo;
-    }
-    catch (PDOException $ex) {
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "contatos";
+$port = 3306;
 
-        echo 'Erro: ' . $ex->getMessage();
-    }
+//Conexao com a porta
+$conn = new PDO("mysql:host=$host;port=$port;dbname=" . $dbname, $user, $pass);
 
-}
-
-?>
+//Conexao sem a porta
+//$conn = new PDO("mysql:host=$host;dbname=".$dbname, $user, $pass);
