@@ -15,40 +15,49 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 //Verificar se o usuário clicou no botão
 if (!empty($dados['CadUsuario'])) {
-    //var_dump($dados);
-
+    var_dump($dados);
     $empty_input = false;
 
     $dados = array_map('trim', $dados);
     if (in_array("", $dados)) {
         $empty_input = true;
-        echo "<p style='color: #f00;'>Erro: Necessário preencher todos campos!</p>";
+        echo "<p style='color: #f00;'>Erro: Necessario preencher todos os campos!</p>";
     }
     elseif (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
         $empty_input = true;
-        echo "<p style='color: #f00;'>Erro: Necessário preencher com e-mail válido!</p>";
+        echo "<p style='color: #f00; '>Erro: Necessario preencher campo com email valido!</p>";
     }
 
+
+
     if (!$empty_input) {
-        $query_usuario = "INSERT INTO contatos (nome, sobre_nome, data_nascimento, telefone, celular, email) VALUES (:nome, :sobre_nome, :data_nascimento, :telefone, :celular, :email) ";
-        $cad_usuario = $conn->prepare($query_usuario);
-        $cad_usuario->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
-        $cad_usuario->bindParam(':sobre_nome', $dados['sobre_nome'], PDO::PARAM_STR);
-        $cad_usuario->bindParam(':data_nascimento', $dados['data_nascimento'], PDO::PARAM_STR);
-        $cad_usuario->bindParam(':telefone', $dados['telefone'], PDO::PARAM_STR);
-        $cad_usuario->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
-        $cad_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-        $cad_usuario->execute();
-        if ($cad_usuario->rowCount()) {
-            echo "<p style='color: green;'>Usuário cadastrado com sucesso!</p>";
-            unset($dados);
+        $query_contatos = "INSERT INTO contatos (nome, sobre_nome, data_nascimento, telefone, celular, email) VALUES (:nome, :sobre_nome, :data_nascimento, :telefone, :celular, :email) ";
+        $cad_contatos = $conn->prepare($query_contatos);
+        $cad_contatos->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $cad_contatos->bindParam(':sobre_nome', $dados['sobre_nome'], PDO::PARAM_STR);
+        $cad_contatos->bindParam(':data_nascimento', $dados['data_nascimento'], PDO::PARAM_INT);
+        $cad_contatos->bindParam(':telefone', $dados['telefone'], PDO::PARAM_INT);
+        $cad_contatos->bindParam(':celular', $dados['celular'], PDO::PARAM_INT);
+        $cad_contatos->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+        $cad_contatos->execute();
+        if ($cad_contatos->rowCount()) {
+            echo "<p style='color: green;'>Usuario cadastrado com sucesso!<br>";
         }
         else {
-            echo "<p style='color: #f00;'>Erro: Usuário não cadastrado com sucesso!</p>";
+            echo "<p style='color: #ff00;'>Erro: Usuario nao cadastrado com sucesso!<br>";
         }
     }
+
+
 }
+
+
 ?>
+
+
+   
+
+
         <form name="cad-usuario" method="POST" action="">
             <label>Nome: </label>
             <input type="text" name="nome" id="nome" placeholder="nome" value="<?php
@@ -99,4 +108,3 @@ if (isset($dados['email'])) {
         
     </body>
 </html>
-
