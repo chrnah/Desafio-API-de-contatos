@@ -23,10 +23,7 @@ if (!empty($dados['CadUsuario'])) {
         $empty_input = true;
         echo "<p style='color: #f00;'>Erro: Necessario preencher todos os campos!</p>";
     }
-    elseif (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
-        $empty_input = true;
-        echo "<p style='color: #f00; '>Erro: Necessario preencher campo com email valido!</p>";
-    }
+
 
 
 
