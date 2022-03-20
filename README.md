@@ -10,7 +10,7 @@ Entidade/ Modelo e composta por NOME, SOBRE_NOME, DATA_NASCIMENTO, TELEFONE, CEL
 ## CADASTRO
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro1.png)
 
-## CADASTRADO 
+## CADASTRADO NO PHPMYADMIN
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro2.png)
 
 ## LISTAR
@@ -22,5 +22,5 @@ Entidade/ Modelo e composta por NOME, SOBRE_NOME, DATA_NASCIMENTO, TELEFONE, CEL
 ## DELETAR
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro5.png)
 
-## DELETAR
+## DELETADO DO PHPMYADMIN
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro6.png)
