@@ -1,31 +1,57 @@
 <?php
-session_start();
-include_once("conexao.php");
+include_once './conexao.php';
 ?>
 
 <!DOCTYPE html>
-
-<html lang="pt-br">
+<html>
     <head>
-        <meta charset="utf-8">
-        <title>Listar</title>
+        <meta charset="UTF-8">
+        <title> Listar </title>
+
 </head>
+
 <body>
-        <a href="cadastrar.php">Cadastrar</a><br>
-		<a href="listar.php">Listar</a><br>
-    <h1>Listar</h1>
+    
+
+<br><br><hr></hr>
+
     <?php
-if (isset($_SESSION['msg'])) {
-    echo $_SESSION['msg'];
-    unset($_SESSION['msg']);
+
+
+
+$query_contatos = "SELECT nome, sobre_nome, data_nascimento, email From contatos";
+$result_contatos = $conn->prepare($query_contatos);
+$result_contatos->execute();
+
+if (($result_contatos) and ($result_contatos->rowCount() != 0)) {
+    while ($row_contatos = $result_contatos->fetch(PDO::FETCH_ASSOC)) {
+        //var_dump($row_contatos);
+        extract($row_contatos);
+        echo "nome: $nome <br>";
+        echo "sobre_nome: $sobre_nome <br>";
+        echo "data_nascimento: $data_nascimento <br>";
+        echo "email: $email <br>";
+
+        echo "<a href='cadastrar.php?nome=$nome'>Cadastrar</a><br>";
+        echo "<a href='atualizar.php?nome=$nome'>Atualizar</a><br>";
+        echo "<a href='deletar.php?nome=$nome'>Deletar</a><br>";
+
+        echo "<hr>";
+    }
+
 }
-
-$sql = "SELECT * FROM contatos ORDER BY id DESC";
-$result = $conexao->query($sql);
-print_r($result);
-
-
-
+else {
+    echo "<p style='color: #f00;'>Erro: Usuario nao cadastrado com sucesso!</p>";
+}
 ?>
-    </body>
-    </html>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
