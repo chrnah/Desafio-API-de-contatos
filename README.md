@@ -19,6 +19,9 @@ Entidade/ Modelo e composta por NOME, SOBRE_NOME, DATA_NASCIMENTO, TELEFONE, CEL
 ## LISTAR
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro4.png)
 
+## ATUALIZAR
+![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/atualizando%20cadastro.png)
+
 ## DELETAR
 ![PORTIFOLIO](https://github.com/chrnah/Desafio-API-de-contatos/blob/main/cadastro5.png)
 
